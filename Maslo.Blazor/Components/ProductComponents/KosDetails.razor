@@ -1,0 +1,23 @@
+﻿@using KR.Domain.Entities
+@using Maslo.Blazor.Components
+<h3>Детали</h3>
+
+
+
+@if (kros != null)
+  {
+  <div class="card mt-5" style="width: 18rem;">
+  <img src="@kros.Image" class="card-img-top" alt="...">
+  <div class="card-body">
+  <h5 class="card-title">@kros.KrosName</h5>
+   <p class="card-text">@kros.Description</p>
+
+  </div>
+  </div>
+  }
+  @code {
+  [Parameter]
+	public Kros kros { get; set; }
+  [Parameter]
+	public EventCallback<Kros> KrosChanged { get; set; }
+  }

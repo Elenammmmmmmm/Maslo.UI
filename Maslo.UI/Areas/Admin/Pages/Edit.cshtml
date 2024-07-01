@@ -1,0 +1,50 @@
+﻿@page
+@model Maslo.UI.Areas.Admin.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Kros</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Kros.KrosId" />
+            <div class="form-group">
+                <label asp-for="Kros.KrosName" class="control-label"></label>
+                <input asp-for="Kros.KrosName" class="form-control" />
+                <span asp-validation-for="Kros.KrosName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kros.Description" class="control-label"></label>
+                <input asp-for="Kros.Description" class="form-control" />
+                <span asp-validation-for="Kros.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kros.Image" class="control-label"></label>
+                <input asp-for="Kros.Image" class="form-control" />
+                <span asp-validation-for="Kros.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kros.CategoryId" class="control-label"></label>
+                <select asp-for="Kros.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="Kros.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

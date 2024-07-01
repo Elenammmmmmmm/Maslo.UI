@@ -1,0 +1,48 @@
+﻿@using KR.Domain.Entities
+@using Maslo.Blazor.Services
+@implements IDisposable
+@rendermode InteractiveServer
+
+
+<h3>Изделие дня</h3>
+@if (ProductService.Products != null
+
+   && ProductService.Products.Count() != 0)
+{
+    <table class="table table-striped">
+        <thead>
+        <th>Название</th>
+        <th></th>
+            @foreach (var item in ProductService.Products)
+            {
+            <tr>
+                <td>@item.KrosName</td>
+                <td>
+                    <button class="btn btn-outline-dark"
+                            @onclick="@(()=>OnKrosSelected(item.KrosId))">
+                        Подробно
+                    </button>
+                </td>
+            </tr>
+            }
+        </thead>
+    </table>
+}
+@code {
+    [CascadingParameter]
+    public IProductService<Kros> ProductService { get; set; }
+    [Parameter]
+    public EventCallback<int> KrosSelected { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        ProductService.ListChanged += StateHasChanged;
+    }
+    public async void OnKrosSelected(int id)
+    {
+        await KrosSelected.InvokeAsync(id);
+    }
+    public void Dispose()
+    {
+        ProductService.ListChanged -= StateHasChanged;
+    }
+}

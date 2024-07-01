@@ -1,0 +1,30 @@
+﻿@page "/products"
+@using KR.Domain.Entities
+@using KR.Domain.Models
+@using Maslo.Blazor.Components.ProductComponents
+@using Maslo.Blazor.Services
+
+
+@rendermode InteractiveServer
+
+<CascadingValue Value="ProductService">
+<KosList KrosSelected="ShowDetails" />
+<Pager/>
+</CascadingValue>
+
+<KosDetails kros="SelectedKros" />
+
+@code {
+[Inject] IProductService<Kros> ProductService { get; set; }
+
+[Parameter]
+  public Kros SelectedKros { get; set; }
+  protected override async Task OnInitializedAsync()
+  {
+  await ProductService.GetProducts();
+  }
+  void ShowDetails(int id)
+  {
+		SelectedKros = ProductService.Products.First(d => d.KrosId == id);
+  }
+}
